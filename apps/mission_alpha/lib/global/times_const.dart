@@ -1,0 +1,3 @@
+class TimesConst {
+  TimesConst._();
+}
