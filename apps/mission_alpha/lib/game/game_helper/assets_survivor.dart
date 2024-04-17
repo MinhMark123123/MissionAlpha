@@ -132,11 +132,13 @@ class SpriteAnimProvider {
   late SpriteAnimation knifeIdleAnim;
   late SpriteAnimation knifeMeleeAttackAnim;
   late SpriteAnimation knifeMoveAnim;
-  double timeStepIdle = 0.1;
-  double timeStepMeleeAttack = 0.1;
-  double timeStepMove = 0.1;
-  double timeReload = 0.1;
-  double timeShoot = 0.1;
+
+  static const double timeStepIdle = 0.1;
+  static const double timeStepMeleeAttack = 0.1;
+  static const double timeStepMove = 0.1;
+  static const double timeStepRun = 0.02;
+  static const double timeReload = 0.1;
+  static const double timeShoot = 0.1;
 
   Future<void> initAnim() async {
     await _initFlashAnim();
@@ -169,6 +171,7 @@ class SpriteAnimProvider {
     flashMeleeAttackAnim = SpriteAnimation.spriteList(
       flashMeleeAttack,
       stepTime: timeStepMeleeAttack,
+      loop: false,
     );
   }
 
@@ -200,6 +203,7 @@ class SpriteAnimProvider {
     handgunMeleeAttackAnim = SpriteAnimation.spriteList(
       handgunMeleeAttack,
       stepTime: timeStepMeleeAttack,
+      loop: false,
     );
     handgunMoveAnim = SpriteAnimation.spriteList(
       handgunMove,
@@ -240,10 +244,8 @@ class SpriteAnimProvider {
       rifleIdle,
       stepTime: timeStepIdle,
     );
-    rifleMeleeAttackAnim = SpriteAnimation.spriteList(
-      rifleMeleeAttack,
-      stepTime: timeStepMeleeAttack,
-    );
+    rifleMeleeAttackAnim = SpriteAnimation.spriteList(rifleMeleeAttack,
+        stepTime: timeStepMeleeAttack, loop: false);
     rifleMoveAnim = SpriteAnimation.spriteList(
       rifleMove,
       stepTime: timeStepMove,
@@ -275,10 +277,8 @@ class SpriteAnimProvider {
       knifeIdle,
       stepTime: timeStepIdle,
     );
-    knifeMeleeAttackAnim = SpriteAnimation.spriteList(
-      knifeMeleeAttack,
-      stepTime: timeStepMeleeAttack,
-    );
+    knifeMeleeAttackAnim = SpriteAnimation.spriteList(knifeMeleeAttack,
+        stepTime: timeStepMeleeAttack, loop: false);
     knifeMoveAnim = SpriteAnimation.spriteList(
       knifeMove,
       stepTime: timeStepMove,
