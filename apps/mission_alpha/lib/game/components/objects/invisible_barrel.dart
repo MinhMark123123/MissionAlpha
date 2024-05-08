@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +7,10 @@ import 'package:mission_alpha/global/game_size_const.dart';
 class InvisibleBarrel extends BaseCircleComponent {
   InvisibleBarrel({super.position})
       : super(
-          paint: Paint()..color = Colors.transparent,
+          paint: Paint()..color = Colors.red,
           radius: GameSizeConst.bulletRadius,
           anchor: Anchor.center,
         );
+  @override
+  bool get debugMode => true;
 }

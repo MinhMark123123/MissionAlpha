@@ -12,6 +12,8 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  $AssetsImagesEnemyGen get enemy => const $AssetsImagesEnemyGen();
+
   /// File path: assets/images/melee_attack.png
   AssetGenImage get meleeAttack =>
       const AssetGenImage('assets/images/melee_attack.png');
@@ -19,11 +21,61 @@ class $AssetsImagesGen {
   /// File path: assets/images/shoot.png
   AssetGenImage get shoot => const AssetGenImage('assets/images/shoot.png');
 
+  $AssetsImagesTextureGen get texture => const $AssetsImagesTextureGen();
   $AssetsImagesTopDownSurvivorGen get topDownSurvivor =>
       const $AssetsImagesTopDownSurvivorGen();
 
   /// List of all assets
   List<AssetGenImage> get values => [meleeAttack, shoot];
+}
+
+class $AssetsTilesGen {
+  const $AssetsTilesGen();
+
+  /// File path: assets/tiles/city_elements.tsx
+  String get cityElements => 'assets/tiles/city_elements.tsx';
+
+  /// File path: assets/tiles/dark_wood.tsx
+  String get darkWood => 'assets/tiles/dark_wood.tsx';
+
+  /// File path: assets/tiles/level_1.tiled-project
+  String get level1TiledProject => 'assets/tiles/level_1.tiled-project';
+
+  /// File path: assets/tiles/level_1.tiled-session
+  String get level1TiledSession => 'assets/tiles/level_1.tiled-session';
+
+  /// File path: assets/tiles/level_1.tmx
+  String get level1Tmx => 'assets/tiles/level_1.tmx';
+
+  /// List of all assets
+  List<String> get values => [
+        cityElements,
+        darkWood,
+        level1TiledProject,
+        level1TiledSession,
+        level1Tmx
+      ];
+}
+
+class $AssetsImagesEnemyGen {
+  const $AssetsImagesEnemyGen();
+
+  $AssetsImagesEnemyZomGen get zom => const $AssetsImagesEnemyZomGen();
+}
+
+class $AssetsImagesTextureGen {
+  const $AssetsImagesTextureGen();
+
+  /// File path: assets/images/texture/city_elements.png
+  AssetGenImage get cityElements =>
+      const AssetGenImage('assets/images/texture/city_elements.png');
+
+  /// File path: assets/images/texture/dark_wood.png
+  AssetGenImage get darkWood =>
+      const AssetGenImage('assets/images/texture/dark_wood.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [cityElements, darkWood];
 }
 
 class $AssetsImagesTopDownSurvivorGen {
@@ -37,6 +89,15 @@ class $AssetsImagesTopDownSurvivorGen {
       const $AssetsImagesTopDownSurvivorKnifeGen();
   $AssetsImagesTopDownSurvivorRifleGen get rifle =>
       const $AssetsImagesTopDownSurvivorRifleGen();
+}
+
+class $AssetsImagesEnemyZomGen {
+  const $AssetsImagesEnemyZomGen();
+
+  $AssetsImagesEnemyZomAttackGen get attack =>
+      const $AssetsImagesEnemyZomAttackGen();
+  $AssetsImagesEnemyZomIdleGen get idle => const $AssetsImagesEnemyZomIdleGen();
+  $AssetsImagesEnemyZomMoveGen get move => const $AssetsImagesEnemyZomMoveGen();
 }
 
 class $AssetsImagesTopDownSurvivorFlashlightGen {
@@ -89,6 +150,245 @@ class $AssetsImagesTopDownSurvivorRifleGen {
       const $AssetsImagesTopDownSurvivorRifleReloadGen();
   $AssetsImagesTopDownSurvivorRifleShootGen get shoot =>
       const $AssetsImagesTopDownSurvivorRifleShootGen();
+}
+
+class $AssetsImagesEnemyZomAttackGen {
+  const $AssetsImagesEnemyZomAttackGen();
+
+  /// File path: assets/images/enemy/zom/attack/skeleton-attack_0.png
+  AssetGenImage get skeletonAttack0 => const AssetGenImage(
+      'assets/images/enemy/zom/attack/skeleton-attack_0.png');
+
+  /// File path: assets/images/enemy/zom/attack/skeleton-attack_1.png
+  AssetGenImage get skeletonAttack1 => const AssetGenImage(
+      'assets/images/enemy/zom/attack/skeleton-attack_1.png');
+
+  /// File path: assets/images/enemy/zom/attack/skeleton-attack_2.png
+  AssetGenImage get skeletonAttack2 => const AssetGenImage(
+      'assets/images/enemy/zom/attack/skeleton-attack_2.png');
+
+  /// File path: assets/images/enemy/zom/attack/skeleton-attack_3.png
+  AssetGenImage get skeletonAttack3 => const AssetGenImage(
+      'assets/images/enemy/zom/attack/skeleton-attack_3.png');
+
+  /// File path: assets/images/enemy/zom/attack/skeleton-attack_4.png
+  AssetGenImage get skeletonAttack4 => const AssetGenImage(
+      'assets/images/enemy/zom/attack/skeleton-attack_4.png');
+
+  /// File path: assets/images/enemy/zom/attack/skeleton-attack_5.png
+  AssetGenImage get skeletonAttack5 => const AssetGenImage(
+      'assets/images/enemy/zom/attack/skeleton-attack_5.png');
+
+  /// File path: assets/images/enemy/zom/attack/skeleton-attack_6.png
+  AssetGenImage get skeletonAttack6 => const AssetGenImage(
+      'assets/images/enemy/zom/attack/skeleton-attack_6.png');
+
+  /// File path: assets/images/enemy/zom/attack/skeleton-attack_7.png
+  AssetGenImage get skeletonAttack7 => const AssetGenImage(
+      'assets/images/enemy/zom/attack/skeleton-attack_7.png');
+
+  /// File path: assets/images/enemy/zom/attack/skeleton-attack_8.png
+  AssetGenImage get skeletonAttack8 => const AssetGenImage(
+      'assets/images/enemy/zom/attack/skeleton-attack_8.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [
+        skeletonAttack0,
+        skeletonAttack1,
+        skeletonAttack2,
+        skeletonAttack3,
+        skeletonAttack4,
+        skeletonAttack5,
+        skeletonAttack6,
+        skeletonAttack7,
+        skeletonAttack8
+      ];
+}
+
+class $AssetsImagesEnemyZomIdleGen {
+  const $AssetsImagesEnemyZomIdleGen();
+
+  /// File path: assets/images/enemy/zom/idle/skeleton-idle_1.png
+  AssetGenImage get skeletonIdle1 =>
+      const AssetGenImage('assets/images/enemy/zom/idle/skeleton-idle_1.png');
+
+  /// File path: assets/images/enemy/zom/idle/skeleton-idle_10.png
+  AssetGenImage get skeletonIdle10 =>
+      const AssetGenImage('assets/images/enemy/zom/idle/skeleton-idle_10.png');
+
+  /// File path: assets/images/enemy/zom/idle/skeleton-idle_11.png
+  AssetGenImage get skeletonIdle11 =>
+      const AssetGenImage('assets/images/enemy/zom/idle/skeleton-idle_11.png');
+
+  /// File path: assets/images/enemy/zom/idle/skeleton-idle_12.png
+  AssetGenImage get skeletonIdle12 =>
+      const AssetGenImage('assets/images/enemy/zom/idle/skeleton-idle_12.png');
+
+  /// File path: assets/images/enemy/zom/idle/skeleton-idle_13.png
+  AssetGenImage get skeletonIdle13 =>
+      const AssetGenImage('assets/images/enemy/zom/idle/skeleton-idle_13.png');
+
+  /// File path: assets/images/enemy/zom/idle/skeleton-idle_14.png
+  AssetGenImage get skeletonIdle14 =>
+      const AssetGenImage('assets/images/enemy/zom/idle/skeleton-idle_14.png');
+
+  /// File path: assets/images/enemy/zom/idle/skeleton-idle_15.png
+  AssetGenImage get skeletonIdle15 =>
+      const AssetGenImage('assets/images/enemy/zom/idle/skeleton-idle_15.png');
+
+  /// File path: assets/images/enemy/zom/idle/skeleton-idle_16.png
+  AssetGenImage get skeletonIdle16 =>
+      const AssetGenImage('assets/images/enemy/zom/idle/skeleton-idle_16.png');
+
+  /// File path: assets/images/enemy/zom/idle/skeleton-idle_17.png
+  AssetGenImage get skeletonIdle17 =>
+      const AssetGenImage('assets/images/enemy/zom/idle/skeleton-idle_17.png');
+
+  /// File path: assets/images/enemy/zom/idle/skeleton-idle_2.png
+  AssetGenImage get skeletonIdle2 =>
+      const AssetGenImage('assets/images/enemy/zom/idle/skeleton-idle_2.png');
+
+  /// File path: assets/images/enemy/zom/idle/skeleton-idle_3.png
+  AssetGenImage get skeletonIdle3 =>
+      const AssetGenImage('assets/images/enemy/zom/idle/skeleton-idle_3.png');
+
+  /// File path: assets/images/enemy/zom/idle/skeleton-idle_4.png
+  AssetGenImage get skeletonIdle4 =>
+      const AssetGenImage('assets/images/enemy/zom/idle/skeleton-idle_4.png');
+
+  /// File path: assets/images/enemy/zom/idle/skeleton-idle_5.png
+  AssetGenImage get skeletonIdle5 =>
+      const AssetGenImage('assets/images/enemy/zom/idle/skeleton-idle_5.png');
+
+  /// File path: assets/images/enemy/zom/idle/skeleton-idle_6.png
+  AssetGenImage get skeletonIdle6 =>
+      const AssetGenImage('assets/images/enemy/zom/idle/skeleton-idle_6.png');
+
+  /// File path: assets/images/enemy/zom/idle/skeleton-idle_7.png
+  AssetGenImage get skeletonIdle7 =>
+      const AssetGenImage('assets/images/enemy/zom/idle/skeleton-idle_7.png');
+
+  /// File path: assets/images/enemy/zom/idle/skeleton-idle_8.png
+  AssetGenImage get skeletonIdle8 =>
+      const AssetGenImage('assets/images/enemy/zom/idle/skeleton-idle_8.png');
+
+  /// File path: assets/images/enemy/zom/idle/skeleton-idle_9.png
+  AssetGenImage get skeletonIdle9 =>
+      const AssetGenImage('assets/images/enemy/zom/idle/skeleton-idle_9.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [
+        skeletonIdle1,
+        skeletonIdle10,
+        skeletonIdle11,
+        skeletonIdle12,
+        skeletonIdle13,
+        skeletonIdle14,
+        skeletonIdle15,
+        skeletonIdle16,
+        skeletonIdle17,
+        skeletonIdle2,
+        skeletonIdle3,
+        skeletonIdle4,
+        skeletonIdle5,
+        skeletonIdle6,
+        skeletonIdle7,
+        skeletonIdle8,
+        skeletonIdle9
+      ];
+}
+
+class $AssetsImagesEnemyZomMoveGen {
+  const $AssetsImagesEnemyZomMoveGen();
+
+  /// File path: assets/images/enemy/zom/move/skeleton-move_1.png
+  AssetGenImage get skeletonMove1 =>
+      const AssetGenImage('assets/images/enemy/zom/move/skeleton-move_1.png');
+
+  /// File path: assets/images/enemy/zom/move/skeleton-move_10.png
+  AssetGenImage get skeletonMove10 =>
+      const AssetGenImage('assets/images/enemy/zom/move/skeleton-move_10.png');
+
+  /// File path: assets/images/enemy/zom/move/skeleton-move_11.png
+  AssetGenImage get skeletonMove11 =>
+      const AssetGenImage('assets/images/enemy/zom/move/skeleton-move_11.png');
+
+  /// File path: assets/images/enemy/zom/move/skeleton-move_12.png
+  AssetGenImage get skeletonMove12 =>
+      const AssetGenImage('assets/images/enemy/zom/move/skeleton-move_12.png');
+
+  /// File path: assets/images/enemy/zom/move/skeleton-move_13.png
+  AssetGenImage get skeletonMove13 =>
+      const AssetGenImage('assets/images/enemy/zom/move/skeleton-move_13.png');
+
+  /// File path: assets/images/enemy/zom/move/skeleton-move_14.png
+  AssetGenImage get skeletonMove14 =>
+      const AssetGenImage('assets/images/enemy/zom/move/skeleton-move_14.png');
+
+  /// File path: assets/images/enemy/zom/move/skeleton-move_15.png
+  AssetGenImage get skeletonMove15 =>
+      const AssetGenImage('assets/images/enemy/zom/move/skeleton-move_15.png');
+
+  /// File path: assets/images/enemy/zom/move/skeleton-move_16.png
+  AssetGenImage get skeletonMove16 =>
+      const AssetGenImage('assets/images/enemy/zom/move/skeleton-move_16.png');
+
+  /// File path: assets/images/enemy/zom/move/skeleton-move_17.png
+  AssetGenImage get skeletonMove17 =>
+      const AssetGenImage('assets/images/enemy/zom/move/skeleton-move_17.png');
+
+  /// File path: assets/images/enemy/zom/move/skeleton-move_2.png
+  AssetGenImage get skeletonMove2 =>
+      const AssetGenImage('assets/images/enemy/zom/move/skeleton-move_2.png');
+
+  /// File path: assets/images/enemy/zom/move/skeleton-move_3.png
+  AssetGenImage get skeletonMove3 =>
+      const AssetGenImage('assets/images/enemy/zom/move/skeleton-move_3.png');
+
+  /// File path: assets/images/enemy/zom/move/skeleton-move_4.png
+  AssetGenImage get skeletonMove4 =>
+      const AssetGenImage('assets/images/enemy/zom/move/skeleton-move_4.png');
+
+  /// File path: assets/images/enemy/zom/move/skeleton-move_5.png
+  AssetGenImage get skeletonMove5 =>
+      const AssetGenImage('assets/images/enemy/zom/move/skeleton-move_5.png');
+
+  /// File path: assets/images/enemy/zom/move/skeleton-move_6.png
+  AssetGenImage get skeletonMove6 =>
+      const AssetGenImage('assets/images/enemy/zom/move/skeleton-move_6.png');
+
+  /// File path: assets/images/enemy/zom/move/skeleton-move_7.png
+  AssetGenImage get skeletonMove7 =>
+      const AssetGenImage('assets/images/enemy/zom/move/skeleton-move_7.png');
+
+  /// File path: assets/images/enemy/zom/move/skeleton-move_8.png
+  AssetGenImage get skeletonMove8 =>
+      const AssetGenImage('assets/images/enemy/zom/move/skeleton-move_8.png');
+
+  /// File path: assets/images/enemy/zom/move/skeleton-move_9.png
+  AssetGenImage get skeletonMove9 =>
+      const AssetGenImage('assets/images/enemy/zom/move/skeleton-move_9.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [
+        skeletonMove1,
+        skeletonMove10,
+        skeletonMove11,
+        skeletonMove12,
+        skeletonMove13,
+        skeletonMove14,
+        skeletonMove15,
+        skeletonMove16,
+        skeletonMove17,
+        skeletonMove2,
+        skeletonMove3,
+        skeletonMove4,
+        skeletonMove5,
+        skeletonMove6,
+        skeletonMove7,
+        skeletonMove8,
+        skeletonMove9
+      ];
 }
 
 class $AssetsImagesTopDownSurvivorFlashlightIdleGen {
@@ -1522,6 +1822,7 @@ class Assets {
   Assets._();
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsTilesGen tiles = $AssetsTilesGen();
 }
 
 class AssetGenImage {

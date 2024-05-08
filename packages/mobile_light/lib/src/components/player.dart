@@ -6,6 +6,7 @@ mixin class Player {
   late final ActorController _actorController = ActorController(
     actorConfig: actorConfig,
   );
+
   ActorController get actorController => _actorController;
 
   void doUpdate({
@@ -20,6 +21,7 @@ mixin class Player {
     );
     onJoystickDelta(game.joyStick.delta, game.joyStick.direction);
   }
+
   void jump(bool jump) => _actorController.jump(jump);
 
   void onJoystickDelta(Vector2 delta, JoystickDirection direction) {}

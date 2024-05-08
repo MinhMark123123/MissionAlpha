@@ -1,12 +1,12 @@
-name: maac
+name: mission_alpha
 repository: https://github.com/MinhMark123123/MissionAlpha
 
 sdkPath: /Users/minhnguyen/development/flutter
 
 packages:
- - packages/**
- - apps/
- - doc/**
+  - packages/**
+  - apps/**
+  - doc/**
 
 command:
   version:
@@ -61,4 +61,12 @@ scripts:
     packageFilters:
       dirExists: test
     description: Generate coverage for the selected package.
+
+  generate:flutter:
+    run: melos exec --depends-on="build_runner" -- "flutter pub run build_runner build --delete-conflicting-outputs"
+    description: Build all generated files for Flutter packages in this project
+
+  genAll:
+    run: melos exec --depends-on="build_runner" -- "dart pub run build_runner build --delete-conflicting-outputs" && melos run generate:flutter
+    description: Build all generated files for Dart & Flutter packages in this project
 

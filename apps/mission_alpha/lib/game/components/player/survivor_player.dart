@@ -33,7 +33,7 @@ class SurvivorPlayer extends BaseSpriteAnimationGroup with Player {
 
   @override
   ActorConfig get actorConfig => ActorConfig(
-        moveSpeed: 1.5,
+        moveSpeed: 1.12,
         horizontalControl: false,
         isTopDownRotate: true,
         defaultAngle: _playerDefaultAngle,
@@ -49,13 +49,13 @@ class SurvivorPlayer extends BaseSpriteAnimationGroup with Player {
     _invisibleBarrel = InvisibleBarrel(
       position: Vector2(
         size.x,
-        size.y * 3 / 4 - 2.5,
+        size.y * 3 / 4 - GameSizeConst.bulletRadius / 2,
       ),
     );
     _invisibleBarrel2 = InvisibleBarrel(
       position: Vector2(
-        size.x + 1,
-        size.y * 3 / 4 - 2.5,
+        size.x + 2,
+        size.y * 3 / 4 - GameSizeConst.bulletRadius / 2,
       ),
     );
 
@@ -64,7 +64,7 @@ class SurvivorPlayer extends BaseSpriteAnimationGroup with Player {
       autoStart: false,
       factory: (int amount) {
         return BulletComponent(
-          size: GameSizeConst.bulletSize,
+          size: Vector2.all(GameSizeConst.bulletRadius * 4),
           position: _invisibleBarrel.absolutePosition,
         );
       },
@@ -161,7 +161,6 @@ class SurvivorPlayer extends BaseSpriteAnimationGroup with Player {
         current = PlayerState.flashMeleeAttack;
         break;
     }
-    size = Vector2.all(GameSizeConst.playerBodySizeRifleMelee);
   }
 
   void shoot() {

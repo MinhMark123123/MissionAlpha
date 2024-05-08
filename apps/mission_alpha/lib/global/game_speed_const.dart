@@ -1,5 +1,5 @@
 class GameSpeedConst {
   GameSpeedConst._();
 
-  static const double speedBullet = 1000;
+  static const double speedBullet = 2;
 }

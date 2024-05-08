@@ -1,0 +1,4 @@
+# melos_managed_dependency_overrides: mobile_light
+dependency_overrides:
+  mobile_light:
+    path: ../../packages/mobile_light
