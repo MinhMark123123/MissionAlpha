@@ -1,16 +1,19 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:mission_alpha/game/components/base_component.dart';
-import 'package:mission_alpha/game/components/objects/bullet_component.dart';
 import 'package:mission_alpha/game/components/objects/invisible_barrel.dart';
+import 'package:mission_alpha/game/components/objects/platform_block_component.dart';
+import 'package:mission_alpha/game/components/player/player_animations.dart';
 import 'package:mission_alpha/game/components/player/player_state.dart';
 import 'package:mission_alpha/game/game_helper/assets_survivor.dart';
 import 'package:mission_alpha/global/game_size_const.dart';
 import 'package:mobile_light/mobile_light.dart';
 import 'package:flame/sprite.dart';
 
-class SurvivorPlayer extends BaseSpriteAnimationGroup with Player {
+class SurvivorPlayer extends BaseSpriteAnimationGroup
+    with Player, CollisionCallbacks {
   SurvivorPlayer({super.position})
       : super(
           size: Vector2.all(GameSizeConst.playerBodySizeRifle),
@@ -18,9 +21,7 @@ class SurvivorPlayer extends BaseSpriteAnimationGroup with Player {
         );
   final _playerDefaultAngle = Vector2(1, 0).screenAngle();
 
-  final SpriteAnimProvider spriteAnimProvider = SpriteAnimProvider();
-
-  late final SpawnComponent _bulletSpawner;
+  final PlayerAnimation _playerAnimation = PlayerAnimation();
   late final InvisibleBarrel _invisibleBarrel;
   late final InvisibleBarrel _invisibleBarrel2;
 
@@ -29,7 +30,7 @@ class SurvivorPlayer extends BaseSpriteAnimationGroup with Player {
   InvisibleBarrel get invisibleBarrel2 => _invisibleBarrel2;
 
   @override
-  bool get debugMode => false;
+  bool get debugMode => true;
 
   @override
   ActorConfig get actorConfig => ActorConfig(
@@ -43,8 +44,10 @@ class SurvivorPlayer extends BaseSpriteAnimationGroup with Player {
 
   @override
   FutureOr<void> onLoad() async {
+    initActorController(this);
     await super.onLoad();
-    await spriteAnimProvider.initAnim();
+    await _playerAnimation.initAnim();
+    _playerAnimation.onCompleteSingleStateAnim = () => _onCompleteSingleState();
     _setupAnimation();
     _invisibleBarrel = InvisibleBarrel(
       position: Vector2(
@@ -54,56 +57,18 @@ class SurvivorPlayer extends BaseSpriteAnimationGroup with Player {
     );
     _invisibleBarrel2 = InvisibleBarrel(
       position: Vector2(
-        size.x + 2,
+        size.x + 1,
         size.y * 3 / 4 - GameSizeConst.bulletRadius / 2,
       ),
     );
-
-    _bulletSpawner = SpawnComponent(
-      period: 0.15,
-      autoStart: false,
-      factory: (int amount) {
-        return BulletComponent(
-          size: Vector2.all(GameSizeConst.bulletRadius * 4),
-          position: _invisibleBarrel.absolutePosition,
-        );
-      },
-      selfPositioning: true,
-    );
     add(_invisibleBarrel);
     add(_invisibleBarrel2);
-    game.add(_bulletSpawner);
+    add(CircleHitbox(collisionType: CollisionType.active));
   }
 
   void _setupAnimation() {
-    animations = {
-      PlayerState.flashIdle: spriteAnimProvider.flashIdleAnim,
-      PlayerState.flashMove: spriteAnimProvider.flashMoveAnim,
-      PlayerState.flashMeleeAttack: spriteAnimProvider.flashMeleeAttackAnim,
-      PlayerState.handgunIdle: spriteAnimProvider.handgunIdleAnim,
-      PlayerState.handgunMeleeAttack: spriteAnimProvider.handgunMeleeAttackAnim,
-      PlayerState.handgunMove: spriteAnimProvider.handgunMoveAnim,
-      PlayerState.handgunReload: spriteAnimProvider.handgunReloadAnim,
-      PlayerState.handgunShoot: spriteAnimProvider.handgunShootAnim,
-      PlayerState.rifleIdle: spriteAnimProvider.rifleIdleAnim,
-      PlayerState.rifleMeleeAttack: spriteAnimProvider.rifleMeleeAttackAnim,
-      PlayerState.rifleMove: spriteAnimProvider.rifleMoveAnim,
-      PlayerState.rifleReload: spriteAnimProvider.rifleReloadAnim,
-      PlayerState.rifleShoot: spriteAnimProvider.rifleShootAnim,
-      PlayerState.knifeIdle: spriteAnimProvider.knifeIdleAnim,
-      PlayerState.knifeMeleeAttack: spriteAnimProvider.knifeMeleeAttackAnim,
-      PlayerState.knifeMove: spriteAnimProvider.knifeMoveAnim,
-    };
-    _addComplete(PlayerState.rifleMeleeAttack);
-    _addComplete(PlayerState.handgunMeleeAttack);
-    _addComplete(PlayerState.knifeMeleeAttack);
-    _addComplete(PlayerState.flashMeleeAttack);
-    current = PlayerState.rifleIdle;
-  }
-
-  void _addComplete(PlayerState state) {
-    final ticket = getTicker(state);
-    ticket.onComplete = () => _onCompleteSingleState(ticket);
+    _playerAnimation.setupAnimation(
+        groupComponent: this, initialState: PlayerState.rifleIdle);
   }
 
   SpriteAnimationTicker getTicker(PlayerState state) =>
@@ -114,6 +79,25 @@ class SurvivorPlayer extends BaseSpriteAnimationGroup with Player {
     super.update(dt);
     doUpdate(game: game, component: this, dt: dt);
     _handleMoveAnim();
+  }
+
+  @override
+  void onCollisionStart(
+    Set<Vector2> intersectionPoints,
+    PositionComponent other,
+  ) {
+    super.onCollisionStart(intersectionPoints, other);
+    if (other is PlatformBlockComponent) {
+      addObstacleObject(other);
+    }
+  }
+
+  @override
+  void onCollisionEnd(PositionComponent other) {
+    super.onCollisionEnd(other);
+    if (other is PlatformBlockComponent) {
+      removeObstacleObject(other);
+    }
   }
 
   void _handleMoveAnim() {
@@ -182,11 +166,11 @@ class SurvivorPlayer extends BaseSpriteAnimationGroup with Player {
       default:
         break;
     }
-    _bulletSpawner.timer.start();
+    invisibleBarrel.shoot();
   }
 
   void stopShooting() {
-    _bulletSpawner.timer.stop();
+    invisibleBarrel.stopShooting();
     PlayerState currentState = current;
     if (currentState.isRifle) {
       current = PlayerState.rifleIdle;
@@ -197,8 +181,7 @@ class SurvivorPlayer extends BaseSpriteAnimationGroup with Player {
     return;
   }
 
-  void _onCompleteSingleState(SpriteAnimationTicker? ticker) {
-    ticker?.reset();
+  void _onCompleteSingleState() {
     size = Vector2.all(GameSizeConst.playerBodySizeRifle);
     setToIdle();
   }

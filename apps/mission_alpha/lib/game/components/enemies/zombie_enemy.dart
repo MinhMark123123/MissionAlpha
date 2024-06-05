@@ -39,11 +39,6 @@ class ZombieEnemy extends BaseSpriteAnimationGroup with CollisionCallbacks {
     );
   }
 
-  @override
-  void update(double dt) {
-    super.update(dt);
-    // lookAt(game.player.position);
-  }
 
   void _addComplete(ZombieState state) {
     final ticket = getTicker(state);

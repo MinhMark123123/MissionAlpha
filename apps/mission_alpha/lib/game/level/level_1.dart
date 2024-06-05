@@ -1,4 +1,3 @@
-import 'package:mission_alpha/game/components/player/survivor_player.dart';
 import 'package:mission_alpha/game/level/base_level.dart';
 import 'package:mission_alpha/gen/assets.gen.dart';
 import 'package:mission_alpha/utils/assets_gen_image_extension.dart';

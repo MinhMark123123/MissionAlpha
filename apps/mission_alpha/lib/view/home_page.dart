@@ -9,19 +9,26 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<void>(
-      future: _prepareGameProcess(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState != ConnectionState.done) {
-          return const SizedBox.shrink();
-        }
-        return GameWidget<MissionAlphaGame>.controlled(
-          overlayBuilderMap: {
-            MenuHeader.keyControlMenu: (_, game) => MenuHeader.menuControl(game)
-          },
-          gameFactory: MissionAlphaGame.new,
-        );
-      },
+    return SafeArea(
+      top: false,
+      bottom: false,
+      left: false,
+      right: false,
+      child: FutureBuilder<void>(
+        future: _prepareGameProcess(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState != ConnectionState.done) {
+            return const SizedBox.shrink();
+          }
+          return GameWidget<MissionAlphaGame>.controlled(
+            overlayBuilderMap: {
+              MenuHeader.keyControlMenu: (_, game) =>
+                  MenuHeader.menuControl(game)
+            },
+            gameFactory: MissionAlphaGame.new,
+          );
+        },
+      ),
     );
   }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="20" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="5">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="20" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="10">
  <tileset firstgid="1" source="dark_wood.tsx"/>
  <layer id="1" name="Tile Layer 1" width="20" height="12">
   <data encoding="csv">
@@ -20,5 +20,12 @@
  <objectgroup id="2" name="spawn_points">
   <object id="1" name="player" type="player" x="63.81" y="255.81" width="63.72" height="63.72"/>
   <object id="2" name="zombie_1" type="zombie_1" x="512.5" y="256.5" width="63" height="63"/>
+ </objectgroup>
+ <objectgroup id="3" name="collisions">
+  <object id="5" name="wall" type="platform" x="191.353" y="96.2964" width="31.5833" height="255.583"/>
+  <object id="6" name="wall" type="platform" x="608.208" y="32.875" width="31.5833" height="318.25"/>
+  <object id="7" name="wall" type="platform" x="639.208" y="0.125" width="32.3333" height="637.25" rotation="90"/>
+  <object id="8" name="wall" type="platform" x="637.958" y="352.125" width="31.5833" height="637.25" rotation="90"/>
+  <object id="9" name="wall" type="platform" x="0.70835" y="33.375" width="31.5833" height="318.25"/>
  </objectgroup>
 </map>

@@ -12,7 +12,7 @@ class Vector2Util {
     return Vector2(x, y);
   }
 
-  static num degreesToRads(num deg) {
+  static double degreesToRads(num deg) {
     return (deg * pi) / 180.0;
   }
 

@@ -2,9 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
-import 'package:mission_alpha/game/components/objects/invisible_barrel.dart';
 import 'package:mission_alpha/game/components/player/survivor_player.dart';
-import 'package:mission_alpha/game/components/ui/melee_attack_button.dart';
 import 'package:mission_alpha/game/components/ui/shoot_button.dart';
 import 'package:mission_alpha/game/level/base_level.dart';
 import 'package:mission_alpha/game/level/level_1.dart';
@@ -40,19 +38,22 @@ class MissionAlphaGame extends MobileGame with HasCollisionDetection {
     camera.viewfinder.anchor = Anchor.center;
     camera.viewport.addAll([
       joyStick,
-      MeleeAttackButton(this,
-          position: Vector2(
-            size.x - GameSizeConst.circleButtonSize - 16,
-            size.y - GameSizeConst.circleButtonSize - 120,
-          ),),
-      ShootButton(this,
-          position: Vector2(
-            size.x - GameSizeConst.circleButtonSize - 16,
-            size.y - GameSizeConst.circleButtonSize - 32,
-          ),),
+      ShootButton(
+        this,
+        position: Vector2(
+          size.x - GameSizeConst.circleButtonSize - 16,
+          size.y - GameSizeConst.circleButtonSize - 32,
+        ),
+      ),
     ]);
     currentLevel = Level1();
     world.add(currentLevel);
+  }
+
+  void addToWorld(Component component) => world.add(component);
+  void addPlayerToWorld(SurvivorPlayer player) {
+    addToWorld(player);
+    this.player = player;
   }
 
   void applyFollowCamera() {

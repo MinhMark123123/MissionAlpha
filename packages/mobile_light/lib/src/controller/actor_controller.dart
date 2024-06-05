@@ -2,18 +2,9 @@ import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile_light/src/components/index.dart';
-import 'package:mobile_light/src/components/index.dart';
+import 'package:mobile_light/src/support/platform_collision_supporter.dart';
 
 class ActorConfig {
-  final double moveSpeed;
-  final double gravity;
-  final double jumpSpeed;
-  final double terminalVelocity;
-  final bool horizontalControl;
-  final bool blockedGameSize;
-  final bool isTopDownRotate;
-  final double defaultAngle;
-
   const ActorConfig({
     this.moveSpeed = 200,
     this.gravity = 10,
@@ -24,17 +15,34 @@ class ActorConfig {
     this.isTopDownRotate = false,
     this.defaultAngle = 0,
   });
+
+  final double moveSpeed;
+  final double gravity;
+  final double jumpSpeed;
+  final double terminalVelocity;
+  final bool horizontalControl;
+  final bool blockedGameSize;
+  final bool isTopDownRotate;
+  final double defaultAngle;
 }
 
 class ActorController {
+  ActorController({required this.actorConfig, required this.component}) {
+    _init();
+  }
+
+  final PositionComponent component;
   final ActorConfig actorConfig;
   final Vector2 velocity = Vector2.zero();
   bool hasJumped = false;
   int horizontalDirection = 0;
   bool isOnGround = false;
   double latestAngle = Vector2.zero().screenAngle();
+  late final PlatformCollisionSupporter _collisionSupporter;
 
-  ActorController({required this.actorConfig});
+  void _init() {
+    _collisionSupporter = PlatformCollisionSupporter(component: component);
+  }
 
   void onKeyEvent(KeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
     horizontalDirection = 0;
@@ -53,18 +61,15 @@ class ActorController {
         keysPressed.contains(LogicalKeyboardKey.arrowRight);
   }
 
-  void applyKeyboardUpdate(
-    PositionComponent positionComponent,
-    double dt,
-  ) {
+  void applyKeyboardUpdate(double dt) {
     velocity.x = horizontalDirection * actorConfig.moveSpeed;
-    positionComponent.position += velocity * dt;
-    if (horizontalDirection < 0 && positionComponent.scale.x > 0) {
-      positionComponent.flipHorizontally();
+    component.position += velocity * dt;
+    if (horizontalDirection < 0 && component.scale.x > 0) {
+      component.flipHorizontally();
       return;
     }
-    if (horizontalDirection > 0 && positionComponent.scale.x < 0) {
-      positionComponent.flipHorizontally();
+    if (horizontalDirection > 0 && component.scale.x < 0) {
+      component.flipHorizontally();
       return;
     }
     _handleJump();
@@ -87,14 +92,12 @@ class ActorController {
 
   void applyControlWithJoystick({
     required MobileGame game,
-    required PositionComponent component,
     required double dt,
   }) {
     final joystick = game.joyStick;
     if (actorConfig.horizontalControl) {
       _handleHorizontalMoving(
         joystick: joystick,
-        component: component,
         game: game,
         dt: dt,
       );
@@ -102,7 +105,6 @@ class ActorController {
     }
     _handleMoving(
       joystick: joystick,
-      component: component,
       game: game,
       dt: dt,
     );
@@ -110,13 +112,12 @@ class ActorController {
 
   void _handleHorizontalMoving({
     required GameJoystick joystick,
-    required PositionComponent component,
     required MobileGame game,
     required double dt,
   }) {
     horizontalDirection = 0;
-    bool isLeftSide = false;
-    bool isRightSide = false;
+    var isLeftSide = false;
+    var isRightSide = false;
     final position = component.position;
     switch (joystick.direction) {
       case JoystickDirection.up:
@@ -151,8 +152,12 @@ class ActorController {
     _handleJump();
   }
 
-  void _joyStickMoveRight(NotifyingVector2 position, MobileGame game,
-      GameJoystick joystick, double dt) {
+  void _joyStickMoveRight(
+    NotifyingVector2 position,
+    MobileGame game,
+    GameJoystick joystick,
+    double dt,
+  ) {
     if (actorConfig.blockedGameSize) {
       if (position.x < game.size.x) {
         position.x += actorConfig.moveSpeed * joystick.delta.x * dt;
@@ -162,8 +167,12 @@ class ActorController {
     }
   }
 
-  void _joyStickMoveLeft(NotifyingVector2 position, MobileGame game,
-      GameJoystick joystick, double dt) {
+  void _joyStickMoveLeft(
+    NotifyingVector2 position,
+    MobileGame game,
+    GameJoystick joystick,
+    double dt,
+  ) {
     if (actorConfig.blockedGameSize) {
       if (position.x > 0) {
         position.x += actorConfig.moveSpeed * joystick.delta.x * dt;
@@ -175,13 +184,12 @@ class ActorController {
 
   void _handleMoving({
     required GameJoystick joystick,
-    required PositionComponent component,
     required MobileGame game,
     required double dt,
   }) {
     horizontalDirection = 0;
-    bool isLeftSide = false;
-    bool isRightSide = false;
+    var isLeftSide = false;
+    var isRightSide = false;
     final position = component.position;
     switch (joystick.direction) {
       case JoystickDirection.up:
@@ -229,6 +237,7 @@ class ActorController {
     }
     horizontalDirection += isLeftSide ? -1 : 0;
     horizontalDirection += isRightSide ? 1 : 0;
+    _collisionSupporter.analyzeCollision();
     if (actorConfig.isTopDownRotate && joystick.delta.screenAngle() != 0) {
       component.angle = joystick.delta.screenAngle() - actorConfig.defaultAngle;
       return;
@@ -243,8 +252,12 @@ class ActorController {
     }
   }
 
-  void _joyStickMoveDown(NotifyingVector2 position, MobileGame game,
-      GameJoystick joystick, double dt) {
+  void _joyStickMoveDown(
+    NotifyingVector2 position,
+    MobileGame game,
+    GameJoystick joystick,
+    double dt,
+  ) {
     if (actorConfig.blockedGameSize) {
       if (position.y < game.size.y) {
         position.y += actorConfig.moveSpeed * joystick.delta.y * dt;
@@ -255,7 +268,10 @@ class ActorController {
   }
 
   void _joyStickMoveUp(
-      NotifyingVector2 position, GameJoystick joystick, double dt) {
+    NotifyingVector2 position,
+    GameJoystick joystick,
+    double dt,
+  ) {
     if (actorConfig.blockedGameSize) {
       if (position.y > 0) {
         position.y += actorConfig.moveSpeed * joystick.delta.y * dt;
@@ -266,4 +282,12 @@ class ActorController {
   }
 
   void jump(bool jump) => hasJumped = jump;
+
+  void addObstacleObject(PositionComponent object) {
+    _collisionSupporter.addObstacleObject(object);
+  }
+
+  void removeObstacleObject(PositionComponent object) {
+    _collisionSupporter.removeObstacleObject(object);
+  }
 }

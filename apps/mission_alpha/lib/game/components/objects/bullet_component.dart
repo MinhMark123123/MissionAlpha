@@ -19,21 +19,15 @@ class BulletComponent extends BasePositionComponent {
 
   @override
   bool get debugMode => false;
- late  Vector2 pos2;
+
   @override
   FutureOr<void> onLoad() async {
     await super.onLoad();
     final pos1 = game.player.invisibleBarrel.absolutePosition;
-     pos2 = game.player.invisibleBarrel2.absolutePosition;
-    /*final camera = game.camera;
-    final pos1 = camera.localToGlobal(game.player.invisibleBarrel.position);
-    final pos2 = camera.localToGlobal(game.player.invisibleBarrel2.position);*/
-    final origin = pos1 - pos2;
-    print(pos1);
-    print(pos2);
-    print(origin);
-    velocity = pos1
-      ..rotate(pos2.angleTo(pos1))
+    final pos2 = game.player.invisibleBarrel2.absolutePosition;
+    final origin = pos2 - pos1;
+    velocity = origin
+      ..rotate(angle)
       ..scale(GameSpeedConst.speedBullet.toDouble());
     add(RectangleHitbox());
   }
@@ -41,18 +35,12 @@ class BulletComponent extends BasePositionComponent {
   @override
   void update(double dt) {
     deltaPosition
-      ..setFrom(pos2)
-      ..scale(dt);
-    position += deltaPosition;
-    /*deltaPosition
       ..setFrom(velocity)
       ..scale(dt);
-    position += deltaPosition;*/
-    print("bullet posiiotn : $absolutePosition");
-    if (position.y * -1 >= game.size.y) removeFromParent();
-    if (position.y >= game.size.y) removeFromParent();
-    if (position.x < 0) removeFromParent();
-    if (position.x > game.size.x) removeFromParent();
+    position += deltaPosition;
+    if (!game.camera.canSee(this)) {
+      removeFromParent();
+    }
     super.update(dt);
   }
 

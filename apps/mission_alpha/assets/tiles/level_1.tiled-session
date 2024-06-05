@@ -16,11 +16,11 @@
             "scaleInDock": 2.091
         },
         "level_1.tmx": {
-            "scale": 0.33,
-            "selectedLayer": 1,
+            "scale": 2,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 298.4848484848485,
-                "y": 171.2121212121212
+                "x": 623.25,
+                "y": 256
             }
         }
     },
@@ -30,13 +30,12 @@
     "map.width": 20,
     "openFiles": [
         "level_1.tmx",
-        "city_elements.tsx",
-        "level_1.tmx"
+        "city_elements.tsx"
     ],
     "project": "level_1.tiled-project",
     "recentFiles": [
-        "level_1.tmx",
-        "city_elements.tsx"
+        "city_elements.tsx",
+        "level_1.tmx"
     ],
     "tileset.lastUsedFormat": "tsx"
 }
